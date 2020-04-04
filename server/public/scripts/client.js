@@ -1,8 +1,14 @@
 $(document).ready(init);
 
+let tasks = [];
+
 function init() {
   console.log("To Do List Ready");
   $("#js-add-task").on("submit", addTask);
+  $(".js-task-output").on("click", ".js-btn-delete-task", deleteTask);
+  $(".js-task-output").on("click", ".js-btn-toggle-complete", toggleComplete);
+
+  getTasks();
 }
 
 function addTask(event) {
@@ -51,34 +57,34 @@ function getTasks() {
       console.warn(err);
     });
 }
-function deleteCat() {
-  const catId = $(this).parent().data("id");
+function deleteTask() {
+  const taskId = $(this).parent().data("id");
 
   $.ajax({
     type: "DELETE",
-    url: `/cat/${catId}`,
+    url: `/tasks/${taskId}`,
   })
     .then((response) => {
-      getCats();
+      getTask();
     })
     .catch((err) => {
       console.warn(err);
     });
 }
 
-function toggleCat() {
-  const owned = {
-    owned: $(this).parent().data("owned"),
+function toggleComplete() {
+  const complete = {
+    complete: $(this).parent().data("complete"),
   };
-  const catId = $(this).parent().data("id");
+  const taskId = $(this).parent().data("id");
 
   $.ajax({
     type: "PUT",
-    url: `/cat/${catId}`,
-    data: owned,
+    url: `/tasks/${taskId}`,
+    data: complete,
   })
     .then((response) => {
-      getCats();
+      getTasks();
     })
     .catch((err) => {
       console.warn(err);

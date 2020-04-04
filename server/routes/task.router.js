@@ -6,7 +6,7 @@ router.post("/", (req, res) => {
   const queryString = `INSERT INTO "tasks" ("item", "quantity", "notes") VALUES ($1, $2, $3);`;
 
   pool
-    .query(queryString, [req.body.cat])
+    .query(queryString, [req.body.task])
     .then((response) => {
       res.sendStatus(201);
     })
