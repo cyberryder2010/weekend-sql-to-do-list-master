@@ -3,10 +3,10 @@ const router = express.Router();
 const pool = require("../modules/pool");
 
 router.post("/", (req, res) => {
-  const queryString = `INSERT INTO "tasks" ("item", "quantity", "notes") VALUES ($1, $2, $3);`;
+  const queryString = `INSERT INTO "tasks" ("item", "quantity", "notes", "complete") VALUES ($1, $2, $3, false);`;
 
   pool
-    .query(queryString, [req.body.task])
+    .query(queryString, [req.body.item, req.body.quantity, req.body.notes])
     .then((response) => {
       res.sendStatus(201);
     })
