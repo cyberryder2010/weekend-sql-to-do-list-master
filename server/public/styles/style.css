@@ -1,0 +1,29 @@
+body {
+  background-color: lightblue;
+}
+
+h1 {
+  background-color: ivory;
+  text-align: center;
+  box-shadow: 0 8px 5px rgb(0, 0, 0, 0.5);
+}
+
+.todolist {
+  width: 100%;
+  padding: 20px;
+}
+
+.todolist > * {
+  margin-bottom: 10px;
+}
+.complete {
+  background-color: darkblue;
+}
+
+.js-btn-toggle-complete {
+  background-color: tomato;
+}
+
+.complete .js-btn-toggle-complete {
+  background-color: green;
+}

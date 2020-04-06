@@ -14,21 +14,16 @@ function init() {
 function addTask(event) {
   event.preventDefault();
 
-  const newTask = [
-    $("#js-item").val(),
-    $("#js-quantity").val(),
-    $("#js-notes").val(),
-  ];
-  postTask(newTask);
+  postTask();
 
   clearInput();
 }
 
-function postTask(task) {
+function postTask() {
   const dataToServer = {
-    item: $("#js-item"),
-    quantity: $("#js-quantity"),
-    notes: $("#js-notes"),
+    item: $("#js-item").val(),
+    quantity: $("#js-quantity").val(),
+    notes: $("#js-notes").val(),
   };
 
   $.ajax({
@@ -65,7 +60,7 @@ function deleteTask() {
     url: `/tasks/${taskId}`,
   })
     .then((response) => {
-      getTask();
+      getTasks();
     })
     .catch((err) => {
       console.warn(err);
@@ -77,7 +72,8 @@ function toggleComplete() {
     complete: $(this).parent().data("complete"),
   };
   const taskId = $(this).parent().data("id");
-
+  console.log(complete);
+  console.log(taskId);
   $.ajax({
     type: "PUT",
     url: `/tasks/${taskId}`,
@@ -103,9 +99,9 @@ function renderTasks() {
   for (let task of tasks) {
     $(".js-task-output").append(`
         <div data-id=${task.id} data-complete=${task.complete}>
-            <span>${task.item}</span>
-            <button class="js-btn-delete-task">X</button>
-            <button class="js-btn-toggle-complete">O</button>
+            <span>${task.item} ${task.quantity} ${task.notes}</span>
+            <button class="js-btn-delete-task">Delete</button>
+            <button class="js-btn-toggle-complete">Complete</button>
         </div>
     `);
 
